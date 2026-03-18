@@ -1,0 +1,453 @@
+22:34:22 [orca_v20.pipeline] INFO: ============================================================
+22:34:22 [orca_v20.pipeline] INFO: *** BUDGET SPRINT MODE ACTIVE ***
+22:34:22 [orca_v20.pipeline] INFO:   Models: claude-haiku/gpt-mini/gemini-flash
+22:34:22 [orca_v20.pipeline] INFO:   Publishing: ALL DISABLED
+22:34:22 [orca_v20.pipeline] INFO:   Max cost/run: $3.0
+22:34:22 [orca_v20.pipeline] INFO:   Stage caps: S2=4, S3=3, Struct=2
+22:34:22 [orca_v20.pipeline] INFO:   Replay in intraday: DISABLED
+22:34:22 [orca_v20.pipeline] INFO: ============================================================
+22:34:22 [orca_v20.pipeline] INFO: Portfolio value: $50,000
+22:34:22 [orca_v20.pipeline] WARNING: No regime_prediction.json found — skipping regime context
+22:34:22 [orca_v20.db] INFO: Bootstrapping v20 database at: C:\Users\18329\Downloads\v3-work-file_Budget\orca_v20.db
+22:34:22 [orca_v20.db] INFO: v20 DB ready — 22 tables: budget_intelligence_log, crowd_snapshots, elite_agent_votes, etp_records, evidence_packs, evidence_source_links, institutional_pressure_snapshots, intraday_cases, memory_cases, monitor_rules, overnight_budget_log, quant_proof_records, replay_job_queue, replay_runs, run_traces, sector_cache, sqlite_sequence, teacher_feedback, theses, thesis_daily_snapshots, thesis_forward_outcomes, training_examples
+22:34:22 [orca_v20.pipeline] INFO: ============================================================
+22:34:22 [orca_v20.pipeline] INFO: ORCA v20 Pipeline — run_id=5d3befad82a1
+22:34:22 [orca_v20.pipeline] INFO:   market_date=2026-03-17
+22:34:22 [orca_v20.pipeline] INFO:   research_mode=standard
+22:34:22 [orca_v20.pipeline] INFO:   source_mode=full
+22:34:22 [orca_v20.pipeline] INFO:   dry_run=False
+22:34:22 [orca_v20.pipeline] INFO: ============================================================
+22:34:22 [orca_v20.daemon_rules] INFO: [daemon] Portfolio healthy: 0 positions, streak=0, regime_shift_prob=0.10
+22:34:24 [orca_v20.sources.nws] INFO: [nws] Fetched 219 market-relevant alerts (of 626 total)
+22:34:24 [orca_v20.sources.orchestrator] INFO: [sources] NWS: 219 items (healthy)
+22:34:25 [orca_v20.sources.eia] INFO: [eia] Fetched 4 data points for petroleum_crude_stocks
+22:34:26 [orca_v20.sources.eia] INFO: [eia] Fetched 0 data points for natgas_storage
+22:34:28 [orca_v20.sources.eia] INFO: [eia] Fetched 0 data points for petroleum_product_supplied
+22:34:28 [orca_v20.sources.orchestrator] INFO: [sources] EIA: 4 items (healthy)
+22:34:43 [orca_v20.sources.orchestrator] INFO: [sources] NOAA PORTS: 5 items (healthy)
+22:34:43 [orca_v20.sources.google_trends] INFO: [google_trends] Fetched 10 trends from RSS
+22:34:43 [orca_v20.sources.orchestrator] INFO: [sources] Google Trends: 10 items (healthy)
+22:34:56 [orca_v20.sources.gdelt] INFO: [gdelt] 'oil price surge' → 10 articles
+22:35:08 [orca_v20.sources.gdelt] INFO: [gdelt] 'natural gas supply disruption' → 10 articles
+22:35:17 [orca_v20.sources.gdelt] INFO: [gdelt] 'hurricane energy infrastructure' → 10 articles
+22:35:20 [orca_v20.sources.gdelt] INFO: [gdelt] 429 rate-limited on 'sanctions energy', backing off 5s...
+22:35:25 [orca_v20.sources.gdelt] WARNING: [gdelt] Search failed for 'sanctions energy': 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?query=sanctions+energy&mode=artlist&maxrecords=10&timespan=3d&format=json&sourcelang=english
+22:35:27 [orca_v20.sources.gdelt] INFO: [gdelt] 429 rate-limited on 'airline fuel costs', backing off 5s...
+22:35:33 [orca_v20.sources.gdelt] WARNING: [gdelt] Search failed for 'airline fuel costs': 429 Client Error: Too Many Requests for url: https://api.gdeltproject.org/api/v2/doc/doc?query=airline+fuel+costs&mode=artlist&maxrecords=10&timespan=3d&format=json&sourcelang=english
+22:35:38 [orca_v20.sources.gdelt] INFO: [gdelt] 'shipping disruption' → 10 articles
+22:35:40 [orca_v20.sources.gdelt] INFO: [gdelt] 429 rate-limited on 'commodity supply shock', backing off 5s...
+22:35:58 [orca_v20.sources.gdelt] INFO: [gdelt] 'commodity supply shock' → 10 articles
+22:35:58 [orca_v20.sources.orchestrator] INFO: [sources] GDELT: 50 items (healthy)
+22:35:58 [orca_v20.sources.aisstream] INFO: [aisstream] Starting snapshot: 6 regions, 60s duration
+22:36:59 [orca_v20.sources.aisstream] INFO: [aisstream] Snapshot complete: 77 vessels across 4 regions, 4 signal(s)
+22:36:59 [orca_v20.sources.aisstream] INFO: [aisstream] 2 elevated signal(s): houston_galveston=high, calcasieu_cameron=high
+22:36:59 [orca_v20.sources.orchestrator] INFO: [sources] AISstream: 4 items (healthy)
+22:37:02 [orca_v20.sources.x_whitelist] INFO: [x_whitelist] Fetched 0 posts from 6 accounts
+22:37:02 [orca_v20.sources.orchestrator] INFO: [sources] X whitelist: 0 items (degraded)
+22:37:02 [orca_v20.sources.orchestrator] INFO: [sources] Total: 292 items (T1=228, T2=64, T3=0)
+22:37:02 [orca_v20.retrieval_state] WARNING: Source 'x_whitelist' marked as degraded
+22:37:02 [orca_v20.retrieval_state] WARNING: Source 'navcen' marked as disabled
+22:37:02 [orca_v20.pipeline] INFO: Source layer → 292 items (T1=228, T2=64, T3=0)
+22:37:02 [orca_v20.adapters.stage1] INFO: [run_id=5d3befad82a1] Stage 1: Catalyst hunting
+22:48:43 [orca_v20.adapters.stage1] INFO: [Stage 1] GPT two-stage cost: $0.2990
+22:48:43 [orca_v20.adapters.stage1] INFO: [Stage 1] Multi-model hunt returned 11 ideas
+22:48:43 [orca_v20.adapters.stage1] INFO:   #1: LNG (BULLISH) — Conf: 6 — MAJORITY
+22:48:43 [orca_v20.adapters.stage1] INFO:   #2: INSW (BULLISH) — Conf: 6 — MAJORITY
+22:48:43 [orca_v20.adapters.stage1] INFO:   #3: OVV (BULLISH) — Conf: 7 — SINGLE
+22:48:43 [orca_v20.adapters.stage1] INFO:   #4: PBF (BULLISH) — Conf: 7 — SINGLE
+22:48:43 [orca_v20.adapters.stage1] INFO:   #5: VRT (BULLISH) — Conf: 6 — SINGLE
+22:48:43 [orca_v20.adapters.stage1] INFO:   #6: FLNG (BULLISH) — Conf: 6 — SINGLE
+22:48:43 [orca_v20.adapters.stage1] INFO:   #7: CNX (BULLISH) — Conf: 6 — SINGLE
+22:48:43 [orca_v20.adapters.stage1] INFO:   #8: WLK (BULLISH) — Conf: 6 — SINGLE
+22:48:43 [orca_v20.adapters.stage1] INFO:   #9: CVE (BULLISH) — Conf: 8 — SINGLE
+22:48:43 [orca_v20.adapters.stage1] INFO:   #10: TSM (BULLISH) — Conf: 8 — SINGLE
+22:48:43 [orca_v20.adapters.stage1] INFO:   #11: OXY (BULLISH) — Conf: 6 — SINGLE
+22:48:43 [orca_v20.adapters.stage1] INFO: [run_id=5d3befad82a1] Stage 1 complete: 11 ideas normalized
+22:48:43 [orca_v20.pipeline] INFO: Stage 1 → 11 ideas generated
+22:48:43 [orca_v20.adapters.flow] INFO: [run_id=5d3befad82a1] Stage 2: Flow enrichment for 11 ideas
+22:48:43 [orca_v20.adapters.flow] INFO:   [LNG] catalyst speed = slow (flow: 14d, history: 20d, DP: 10d)
+22:51:37 [orca_v20.adapters.flow] INFO:   [INSW] catalyst speed = slow (flow: 14d, history: 20d, DP: 10d)
+22:54:00 [orca_v20.adapters.flow] INFO:   [OVV] catalyst speed = fast (flow: 5d, history: 10d, DP: 3d)
+22:56:24 [orca_v20.adapters.flow] INFO:   [PBF] catalyst speed = fast (flow: 5d, history: 10d, DP: 3d)
+22:58:46 [orca_v20.adapters.flow] INFO:   [VRT] catalyst speed = fast (flow: 5d, history: 10d, DP: 3d)
+23:01:35 [orca_v20.adapters.flow] INFO:   [FLNG] catalyst speed = fast (flow: 5d, history: 10d, DP: 3d)
+23:04:29 [orca_v20.adapters.flow] INFO:   [CNX] catalyst speed = fast (flow: 5d, history: 10d, DP: 3d)
+23:05:59 [orca_v20.adapters.flow] INFO:   [WLK] catalyst speed = slow (flow: 14d, history: 20d, DP: 10d)
+23:07:44 [orca_v20.adapters.flow] INFO:   [CVE] catalyst speed = slow (flow: 14d, history: 20d, DP: 10d)
+23:09:59 [orca_v20.adapters.flow] INFO:   [TSM] catalyst speed = medium (flow: 10d, history: 15d, DP: 5d)
+23:11:52 [orca_v20.adapters.flow] INFO:   [OXY] catalyst speed = slow (flow: 14d, history: 20d, DP: 10d)
+23:13:52 [orca_v20.adapters.catalyst] INFO: [run_id=5d3befad82a1] Stage 3: Catalyst confirmation for 11 ideas
+23:15:12 [orca_v20.adapters.catalyst] INFO:   [LNG] HELD | Health: FADING | CDS: 52 | Tape: [NEUTRAL / MIXED] | Framing: watchlist
+
+╔═══════════════════════════════════════════════════════════════╗
+║  🎯 ORCA V3 STAGE 1 — Multi-Model Catalyst Hunt              ║
+║  Models: Claude Opus 4.6 + GPT 5.4 + Gemini 3.1 Pro          ║
+║  Mode: Open Hunt                                              ║
+╚═══════════════════════════════════════════════════════════════╝
+  📡 Gathering intelligence...
+  📰 Scraping RSS feeds...
+  🌤  Checking NWS weather forecasts...
+  📊 Total signals: 32
+     market_news: 10
+     geopolitical: 15
+     weather_alerts: 7
+  📡 Scraped 32 signals from news feeds
+
+╔═══════════════════════════════════════════════════════════════╗
+║  🎯 ORCA V3 STAGE 1 — Catalyst Hunter (R1 v4.8 + UW)        ║
+║  Model: claude-opus-4-6                                      ║
+║  Thinking: adaptive (effort=high)                            ║
+║  Mode: Open Hunt                                            ║
+╚═══════════════════════════════════════════════════════════════╝
+
+  📡 Gathering intelligence...
+  📰 Scraping RSS feeds...
+  🌤  Checking NWS weather forecasts...
+  📊 Total signals: 32
+     market_news: 10
+     geopolitical: 15
+     weather_alerts: 7
+  📡 Scraped 32 signals from news feeds
+
+  🧠 Calling claude-opus-4-6 with adaptive thinking (effort=high)...
+  📡 Using Anthropic SDK + streaming (prevents connection drops)
+  📡 Attempt 1/3...
+
+  ✅ Stage 1 complete in 360.2s
+  📊 Tokens: 126,447 in / 14,911 out
+  💰 Cost: $3.0150
+  💭 Thinking preview: Now let me synthesize what I've gathered and identify the best delayed-reaction candidates:  **Key data points gathered:**  1. **Cheniere Energy (LNG)**:    - Pre-crisis (March 2): $235.73    - Hit all-time high March 6: $255.15 (closed) / $259.24 (intraday)    - March 13 close: $252.27    - March 1...
+
+  📊 Claude: 2 ideas
+
+  🤖 GPT-5.4 Two-Stage (Generator → Adjudicator): Starting...
+    ⚡ Stage A (Generator): Exploring catalysts...
+    ✅ Generator: 8 candidates (gpt-5.4, 111.8s, $0.1857)
+       → OVV (Long) — The active catalyst is the late-February/March 2026 Strait o
+       → LNG (Long) — Qatar/Hormuz LNG disruption is forcing Europe and Asia to hu
+       → FLNG (Long) — The Hormuz crisis has created a global LNG rerouting scrambl
+       → INSW (Long) — Crude tanker economics exploded after the de facto Hormuz cl
+       → CNX (Long) — Two gas catalysts are active at once: March 2026 Midwest ext
+       → WLK (Long) — The Hormuz disruption is creating a petrochemical feedstock 
+       → PBF (Long) — Diesel and refining cracks have surged on the Hormuz shock. 
+       → VRT (Long) — NVIDIA's March 16, 2026 GTC keynote extended the AI hardware
+
+    ⚖️  Stage B (Adjudicator): Scoring 8 candidates...
+    ✅ Adjudicator: scored 8 candidates (gpt-5.4, 117.0s, $0.1133)
+       ✅ OVV — ACCEPT (bull:7 bear:5) disq: none
+       ✅ LNG — ACCEPT (bull:6 bear:5) disq: none
+       ⚠️ FLNG — WATCHLIST (bull:5 bear:6) disq: none
+       ✅ INSW — ACCEPT (bull:8 bear:4) disq: none
+       ⚠️ CNX — WATCHLIST (bull:5 bear:6) disq: none
+       ⚠️ WLK — WATCHLIST (bull:5 bear:6) disq: none
+       ✅ PBF — ACCEPT (bull:7 bear:5) disq: none
+       ✅ VRT — ACCEPT (bull:6 bear:6) disq: none
+
+    📊 GPT Two-Stage Results (228.9s total, $0.2990):
+       ACCEPT: 5 | WATCHLIST: 3 | REJECT: 0
+    🎯 GPT contributing 8 idea(s) to merge
+  📊 GPT: 8 ideas
+
+  💎 Gemini-3.1-pro-preview: Running catalyst hunt...
+    ✅ Gemini hunt complete (87.1s, $0.0381, 7,741+2,845, 6,595 thinking tokens)
+  📊 Gemini: 3 ideas
+
+============================================================
+  MULTI-MODEL MERGE RESULTS
+============================================================
+  Claude: 2 | GPT: 8 | Gemini: 3 → Merged: 11 unique tickers
+    #1: LNG (Bullish) — 2/3 (Claude+GPT) — Conf: Medium
+    #2: INSW (Bullish) — 2/3 (Claude+GPT) — Conf: Medium
+    #3: OVV (Long) — 1/3 (GPT only) — Conf: Medium-high
+    #4: PBF (Long) — 1/3 (GPT only) — Conf: Medium-high
+    #5: VRT (Long) — 1/3 (GPT only) — Conf: Medium
+    #6: FLNG (Long) — 1/3 (GPT only) — Conf: Medium-low
+    #7: CNX (Long) — 1/3 (GPT only) — Conf: Medium-low
+    #8: WLK (Long) — 1/3 (GPT only) — Conf: Medium-low
+    #9: CVE (Bullish) — 1/3 (Gemini only) — Conf: High
+    #10: TSM (Bullish) — 1/3 (Gemini only) — Conf: High
+    #11: OXY (Bullish) — 1/3 (Gemini only) — Conf: Medium
+  📄 Saved raw output: orca_results\stage1_hunt_20260316_2248.md
+  📊 Saved structured data: orca_results\stage1_catalysts.json
+  📡 Fetching UW flow data for LNG (flow:14d history:20d DP:10d)...
+  📈 Fetching historical contract data for LNG...
+    ✓ 500 contracts found
+    ✓ 6 contracts selected (max_dte=75, history=20d)
+    ✓ LNG260320P00240000: 20-day history (PUT $240.0 exp 2026-03-20) | flow: 6 fills, MIXED
+    ✓ LNG260501P00230000: 3-day history (PUT $230.0 exp 2026-05-01) | flow: 8 fills, MIXED
+    ✓ LNG260501P00210000: 3-day history (PUT $210.0 exp 2026-05-01) | flow: 2 fills, MIXED
+    ✓ LNG260417P00250000: 18-day history (PUT $250.0 exp 2026-04-17) | flow: 18 fills, MIXED
+    ✓ LNG260320C00250000: 20-day history (CALL $250.0 exp 2026-03-20) | flow: 15 fills, ACCUMULATION
+    ✓ LNG260320C00230000: 20-day history (CALL $230.0 exp 2026-03-20) | flow: 2 fills, ACCUMULATION
+    📊 6 contracts with history: True
+    ✓ 85 flow alerts, 15d vol history, 500 DP prints, 364 lit flow, 6 contract histories
+  🔍 Reading flow for LNG (Bullish)...
+  ✅ Flow read: [NEUTRAL / MIXED] (151.3s, $1.4930)
+  📡 Fetching UW flow data for INSW (flow:14d history:20d DP:10d)...
+  📈 Fetching historical contract data for INSW...
+    ✓ 164 contracts found
+    ✓ 6 contracts selected (max_dte=75, history=20d)
+    ✓ INSW260320C00080000: 15-day history (CALL $80.0 exp 2026-03-20)
+    ✓ INSW260320C00075000: 20-day history (CALL $75.0 exp 2026-03-20) | flow: 9 fills, DISTRIBUTION
+    ✓ INSW260320C00070000: 20-day history (CALL $70.0 exp 2026-03-20) | flow: 5 fills, DISTRIBUTION
+    ✓ INSW260320C00065000: 20-day history (CALL $65.0 exp 2026-03-20) | flow: 1 fills, ACCUMULATION
+    ✓ INSW260320C00060000: 20-day history (CALL $60.0 exp 2026-03-20)
+    ✓ INSW260320C00055000: 20-day history (CALL $55.0 exp 2026-03-20)
+    📊 6 contracts with history: True
+    ✓ 8 flow alerts, 15d vol history, 143 DP prints, 21 lit flow, 6 contract histories
+  🔍 Reading flow for INSW (Bullish)...
+  ✅ Flow read: [CONTRADICTORY] (120.5s, $0.9431)
+  📡 Fetching UW flow data for OVV (flow:5d history:10d DP:3d)...
+  📈 Fetching historical contract data for OVV...
+    ✓ 276 contracts found
+    ✓ 6 contracts selected (max_dte=30, history=10d)
+    ✓ OVV260320C00055000: 10-day history (CALL $55.0 exp 2026-03-20) | flow: 12 fills, MIXED
+    ✓ OVV260320C00050000: 10-day history (CALL $50.0 exp 2026-03-20) | flow: 3 fills, MIXED
+    ✓ OVV260320C00060000: 10-day history (CALL $60.0 exp 2026-03-20) | flow: 1 fills, ACCUMULATION
+    ✓ OVV260320P00050000: 10-day history (PUT $50.0 exp 2026-03-20)
+    ✓ OVV260320C00048000: 10-day history (CALL $48.0 exp 2026-03-20) | flow: 1 fills, ACCUMULATION
+    ✓ OVV260320P00045000: 10-day history (PUT $45.0 exp 2026-03-20)
+    📊 6 contracts with history: True
+    ✓ 15 flow alerts, 5d vol history, 128 DP prints, 9 lit flow, 6 contract histories
+  🔍 Reading flow for OVV (Bullish)...
+  ✅ Flow read: [NEUTRAL / MIXED] (129.1s, $0.9948)
+23:16:36 [orca_v20.adapters.catalyst] INFO:   [INSW] Flow CONTRADICTORY + not CONFIRMED -- removed
+23:18:03 [orca_v20.adapters.catalyst] INFO:   [OVV] HELD | Health: FADING | CDS: 32 | Tape: [NEUTRAL / MIXED] | Framing: watchlist
+23:19:27 [orca_v20.adapters.catalyst] INFO:   [PBF] HELD | Health: FADING | CDS: 56 | Tape: [NEUTRAL / MIXED] | Framing: watchlist
+23:20:47 [orca_v20.adapters.catalyst] INFO:   [VRT] Flow CONTRADICTORY + not CONFIRMED -- removed
+23:22:13 [orca_v20.adapters.catalyst] INFO:   [FLNG] Flow CONTRADICTORY + not CONFIRMED -- removed
+23:23:31 [orca_v20.adapters.catalyst] INFO:   [CNX] KILLED -- (1) The weather catalyst is terminal — this is a late-winter pulse expiring within days, and milder forecasts are already pulling Henry Hub lower. (2) The LNG disruption transmission to U.S. domestic gas is structurally blocked per EIA — LNG export capacity was already maxed, so the disruption does 
+23:24:51 [orca_v20.adapters.catalyst] INFO:   [WLK] KILLED -- HIGH-VALUE DISAGREEMENT between cross-asset catalyst (strengthening at the commodity level) and options positioning (actively unwinding / net short bias). Equity price action confirms the market is weighting global demand destruction and recession risk above the second-order feedstock advantage. The
+23:26:12 [orca_v20.adapters.catalyst] INFO:   [CVE] INVALIDATED by framing (Health: COLLIDING, Action: DOWNGRADE) -- removed
+23:27:31 [orca_v20.adapters.catalyst] INFO:   [TSM] KILLED -- Catalyst collision. The micro catalyst (NVDA $1T order book) is real and confirmed but is being overwhelmed by a macro catalyst (Iran war / oil shock / Asian equity de-rating) that is directionally opposed, structurally larger, and actively worsening. Options positioning shows universal unwind and d
+23:28:49 [orca_v20.adapters.catalyst] INFO:   [OXY] CONFIRMED | Health: STABLE | CDS: 65 | Tape: [SUPPORTIVE] | Framing: conviction_call
+23:28:49 [orca_v20.adapters.catalyst] INFO: [run_id=5d3befad82a1] Stage 3 complete: 4 survived, 7 filtered
+23:28:49 [orca_v20.pipeline] INFO: Stage 3 → 4 confirmed, 7 filtered
+23:28:49 [orca_v20.thesis_store] INFO: [run_id=5d3befad82a1] Thesis matching for 4 ideas
+23:28:49 [orca_v20.thesis_store] INFO:   [LNG] New thesis 1de4117dd72a
+23:28:50 [numexpr.utils] INFO: Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+23:28:50 [numexpr.utils] INFO: NumExpr defaulting to 8 threads.
+23:28:53 [orca_v20.thesis_store] INFO:   [OVV] New thesis 2ee96ef88a75
+23:28:53 [orca_v20.thesis_store] INFO:   [PBF] New thesis 04e6fe1328a7
+23:28:53 [orca_v20.thesis_store] INFO:   [OXY] New thesis 40a1d170a03a
+23:28:54 [orca_v20.thesis_store] INFO: [thesis_store] 4 new theses, 0 matched existing
+23:28:54 [orca_v20.evidence_gate] INFO: [run_id=5d3befad82a1] Evidence gate for 4 ideas
+23:28:54 [orca_v20.evidence_gate] INFO:   [LNG] 227 external source items merged (support=3, contra=178, neutral=46)
+23:28:54 [orca_v20.evidence_gate] INFO:   [LNG] Evidence gate FAILED (score=0.865): high_contradiction_ratio: 0.77
+23:28:54 [orca_v20.evidence_gate] INFO:   [OVV] 232 external source items merged (support=3, contra=181, neutral=48)
+23:28:54 [orca_v20.evidence_gate] INFO:   [OVV] Evidence gate FAILED (score=0.860): high_contradiction_ratio: 0.77
+23:28:54 [orca_v20.evidence_gate] INFO:   [PBF] 66 external source items merged (support=1, contra=28, neutral=37)
+23:28:54 [orca_v20.evidence_gate] INFO:   [PBF] Evidence gate PASSED (score=0.901, 69 items, 5 types, freshest=0.9h, ext=66)
+23:28:54 [orca_v20.evidence_gate] INFO:   [OXY] 41 external source items merged (support=1, contra=12, neutral=28)
+23:28:54 [orca_v20.evidence_gate] INFO:   [OXY] Evidence gate PASSED (score=0.914, 44 items, 5 types, freshest=0.9h, ext=41)
+23:28:54 [orca_v20.evidence_gate] INFO: [evidence_gate] 2 passed, 2 failed
+23:28:54 [orca_v20.red_team_gate] INFO: [run_id=5d3befad82a1] Red-team gate for 2 ideas
+23:28:54 [orca_v20.red_team_gate] WARNING:   [PBF] RED TEAM REJECTED: risk=0.30, flaws=['high_contradiction: 28/69 items contradict thesis']
+23:28:54 [orca_v20.red_team_gate] INFO:   [PBF] Removed by red-team gate
+23:28:54 [orca_v20.red_team_gate] INFO:   [OXY] Red team passed with warnings: risk=0.10, 1 warnings
+23:28:54 [orca_v20.red_team_gate] INFO: [red_team] 1 ideas rejected, 1 survived
+23:28:54 [orca_v20.pipeline] INFO: Red-team gate → 1/2 survived
+23:28:54 [orca_v20.institutional_pressure] INFO: [run_id=5d3befad82a1] Institutional pressure scan for 1 tickers
+23:28:54 [orca_v20.institutional_pressure] INFO:   [OXY] Pressure: crowding=0.373, pain=0.136, flow=accumulating
+23:28:55 [orca_v20.institutional_pressure] INFO: [institutional_pressure] Scanned 1/1 tickers
+23:28:55 [orca_v20.simulation.elite] INFO:   [OXY] Running elite simulation (15 agents)
+23:28:55 [orca_v20.router] WARNING: [elite_simulation] Over budget ($29.61), skipping call
+23:28:55 [orca_v20.router] WARNING: [elite_simulation] Over budget ($29.61), skipping call
+23:28:55 [orca_v20.router] WARNING: [elite_simulation] Over budget ($29.61), skipping call
+23:28:55 [orca_v20.router] WARNING: [elite_simulation] Over budget ($29.61), skipping call
+23:28:55 [orca_v20.router] WARNING: [elite_simulation] Over budget ($29.61), skipping call
+23:28:55 [orca_v20.router] WARNING: [elite_simulation] Over budget ($29.61), skipping call
+23:28:55 [orca_v20.router] WARNING: [elite_simulation] Over budget ($29.61), skipping call
+23:28:55 [orca_v20.router] WARNING: [elite_simulation] Over budget ($29.61), skipping call
+23:28:55 [orca_v20.router] WARNING: [elite_simulation] Over budget ($29.61), skipping call
+23:28:55 [orca_v20.router] WARNING: [elite_simulation] Over budget ($29.61), skipping call
+23:28:55 [orca_v20.router] WARNING: [elite_simulation] Over budget ($29.61), skipping call
+23:28:55 [orca_v20.router] WARNING: [elite_simulation] Over budget ($29.61), skipping call
+23:28:55 [orca_v20.router] WARNING: [elite_simulation] Over budget ($29.61), skipping call
+23:28:55 [orca_v20.router] WARNING: [elite_simulation] Over budget ($29.61), skipping call
+23:28:55 [orca_v20.router] WARNING: [elite_simulation] Over budget ($29.61), skipping call
+23:28:55 [orca_v20.simulation.elite] INFO:   [OXY] Elite simulation: 15/15 agents responded
+23:28:55 [orca_v20.simulation.aggregation] INFO:   [OXY] Simulation verdict: DOWNSIZE (elite=HOLD, crowd=0.000, dissent=0.00)
+23:28:56 [orca_v20.quant_gate] INFO:   [OXY] Quant gate: PASS_LOW_CONFIDENCE (corr=-0.0332, analogs=0, reasons=['SPY_CORRELATION_OK', 'INSUFFICIENT_ANALOGS'])
+23:28:56 [orca_v20.causal_gate] INFO:   [OXY] Causal gate: PASS (method=heuristic, reasons=['CATALYST_SPECIFIC', 'MECHANISM_WEAK', 'INVALIDATION_SPECIFIC'])
+23:28:57 [orca_v20.factor_gate] INFO:   [OXY] Factor gate: PASS (alpha=46.95%, beta=0.15, R²=0.003, method=single_factor_capm_proxy, reasons=['LOW_BETA_BULLISH_WARNING', 'POSITIVE_ALPHA'])
+23:28:57 [orca_v20.adapters.structurer] INFO: [run_id=5d3befad82a1] Stage 4: Structuring 1 ideas
+23:28:59 [orca_v20.adapters.structurer] INFO: [Stage 4] v3 structurer returned 1 trades
+23:28:59 [orca_v20.adapters.structurer] INFO:   [OXY] BULLISH -> BUY_CALL | Strike: 55.0 | Exp: 2026-04-24
+23:28:59 [orca_v20.adapters.structurer] INFO: [run_id=5d3befad82a1] Stage 4 complete: 1 trades structured
+23:28:59 [orca_v20.sizing] INFO: [run_id=5d3befad82a1] Sizing 1 trades
+23:28:59 [orca_v20.sizing] INFO:   [OXY] Sizing: Kelly=0.265 → ergodic=0.066 → adjusted=0.053 (6 contracts)
+23:28:59 [orca_v20.execution_impact] INFO: [run_id=5d3befad82a1] Execution impact for 1 trades
+23:28:59 [orca_v20.execution_impact] INFO:   [OXY] Execution impact: slippage=7.43% (temp=0.0037, perm=0.000027, cross=0.0706) | liq=0.218 | conf=0.19 | OI=219 vol=11 spread=14.12% | flags=['ILLIQUID', 'WIDE_SPREAD', 'LOW_DATA_CONFIDENCE']
+23:28:59 [orca_v20.adapters.logger] INFO: [run_id=5d3befad82a1] Stage 6: Logging 1 trades
+23:28:59 [orca_v20.adapters.logger] INFO:   [OXY] Logged to orca_v20.db
+23:28:59 [orca_v20.adapters.logger] INFO:   v3 trade log mirroring: OFF (FLAGS.mirror_to_v3_trade_log)
+23:28:59 [orca_v20.adapters.logger] INFO:   Google Sheet sync: deferred to Stage 7 (v20 publisher)
+23:28:59 [orca_v20.adapters.logger] INFO: [run_id=5d3befad82a1] Stage 6 complete: 1 v20 + 0 v3 logged
+23:28:59 [orca_v20.adapters.report] INFO: [run_id=5d3befad82a1] Stage 7: Report generation for 1 trades
+23:28:59 [orca_v20.publisher] INFO: [publisher] BUDGET MODE — all publishing disabled, skipping
+23:28:59 [orca_v20.adapters.report] INFO: [Stage 7] v20 publisher: TG=0, X=0/0 filtered, Sheet=0 rows
+23:29:01 [orca_v20.replay_engine] INFO: [replay_engine] Disabled (FLAGS.enable_replay_engine=False)
+23:29:01 [orca_v20.thesis_momentum] INFO: [run_id=5d3befad82a1] Momentum update starting
+23:29:01 [orca_v20.thesis_momentum] INFO: [thesis_momentum] Updated 5 theses
+23:29:01 [orca_v20.daemon_rules] INFO: [run_id=5d3befad82a1] Updating daemon rules
+23:29:01 [orca_v20.daemon_rules] INFO: [daemon] Rules updated: 1 positions, streak=0
+23:29:01 [orca_v20.pipeline] INFO: [trace] Run trace saved: 5d3befad82a1
+23:29:01 [orca_v20.router] INFO: ─── Router Session Summary ───
+23:29:01 [orca_v20.router] INFO:   Total cost: $0.0000
+23:29:01 [orca_v20.router] INFO:   Roles used: 0
+23:29:01 [orca_v20.pipeline] INFO: ============================================================
+23:29:01 [orca_v20.pipeline] INFO: Pipeline complete — run_id=5d3befad82a1
+23:29:01 [orca_v20.pipeline] INFO:   Ideas: 11 → 1 after gates
+23:29:01 [orca_v20.pipeline] INFO:   Trades: 1 structured, 1 logged
+23:29:01 [orca_v20.pipeline] INFO:   API cost: $29.6109
+23:29:01 [orca_v20.pipeline] INFO:   Errors: 0
+23:29:01 [orca_v20.pipeline] INFO: ============================================================
+  📡 Fetching UW flow data for PBF (flow:5d history:10d DP:3d)...
+  📈 Fetching historical contract data for PBF...
+    ✓ 396 contracts found
+    ✓ 6 contracts selected (max_dte=30, history=10d)
+    ✓ PBF260320P00028000: 10-day history (PUT $28.0 exp 2026-03-20)
+    ✓ PBF260320C00048000: 10-day history (CALL $48.0 exp 2026-03-20) | flow: 2 fills, ACCUMULATION
+    ✓ PBF260320P00033000: 10-day history (PUT $33.0 exp 2026-03-20)
+    ✓ PBF260320C00044000: 10-day history (CALL $44.0 exp 2026-03-20) | flow: 7 fills, ACCUMULATION
+    ✓ PBF260320C00046000: 10-day history (CALL $46.0 exp 2026-03-20) | flow: 4 fills, DISTRIBUTION
+    ✓ PBF260320C00037000: 10-day history (CALL $37.0 exp 2026-03-20) | flow: 5 fills, MIXED
+    📊 6 contracts with history: True
+    ✓ 58 flow alerts, 5d vol history, 150 DP prints, 3 lit flow, 6 contract histories
+  🔍 Reading flow for PBF (Bullish)...
+  ✅ Flow read: [NEUTRAL / MIXED] (126.8s, $1.0482)
+  📡 Fetching UW flow data for VRT (flow:5d history:10d DP:3d)...
+  📈 Fetching historical contract data for VRT...
+    ✓ 500 contracts found
+    ✓ 6 contracts selected (max_dte=30, history=10d)
+    ✓ VRT260320P00227500: 10-day history (PUT $227.5 exp 2026-03-20) | flow: 100 fills, DISTRIBUTION
+    ✓ VRT260320C00270000: 10-day history (CALL $270.0 exp 2026-03-20) | flow: 100 fills, MIXED
+    ✓ VRT260320C00260000: 10-day history (CALL $260.0 exp 2026-03-20) | flow: 55 fills, ACCUMULATION
+    ✓ VRT260320C00280000: 10-day history (CALL $280.0 exp 2026-03-20) | flow: 100 fills, MIXED
+    ✓ VRT260320C00190000: 10-day history (CALL $190.0 exp 2026-03-20) | flow: 7 fills, MIXED
+    ✓ VRT260320P00200000: 10-day history (PUT $200.0 exp 2026-03-20) | flow: 100 fills, MIXED
+    📊 6 contracts with history: True
+    ✓ 200 flow alerts, 5d vol history, 150 DP prints, 150 lit flow, 6 contract histories
+  🔍 Reading flow for VRT (Bullish)...
+  ✅ Flow read: [CONTRADICTORY] (152.6s, $1.0816)
+  📡 Fetching UW flow data for FLNG (flow:5d history:10d DP:3d)...
+  📈 Fetching historical contract data for FLNG...
+    ✓ 164 contracts found
+    ✓ 6 contracts selected (max_dte=30, history=10d)
+    ✓ FLNG260320C00031000: 10-day history (CALL $31.0 exp 2026-03-20) | flow: 2 fills, DISTRIBUTION
+    ✓ FLNG260320P00028000: 10-day history (PUT $28.0 exp 2026-03-20) | flow: 4 fills, DISTRIBUTION
+    ✓ FLNG260320C00029000: 10-day history (CALL $29.0 exp 2026-03-20) | flow: 7 fills, DISTRIBUTION
+    ✓ FLNG260320C00028000: 10-day history (CALL $28.0 exp 2026-03-20) | flow: 4 fills, MIXED
+    ✓ FLNG260320C00032000: 10-day history (CALL $32.0 exp 2026-03-20) | flow: 1 fills, MIXED
+    ✓ FLNG260320C00030000: 10-day history (CALL $30.0 exp 2026-03-20) | flow: 4 fills, ACCUMULATION
+    📊 6 contracts with history: True
+    ✓ 12 flow alerts, 5d vol history, 14 DP prints, 2 lit flow, 6 contract histories
+  🔍 Reading flow for FLNG (Bullish)...
+  ✅ Flow read: [CONTRADICTORY] (159.3s, $1.0688)
+  📡 Fetching UW flow data for CNX (flow:5d history:10d DP:3d)...
+  📈 Fetching historical contract data for CNX...
+    ✓ 234 contracts found
+    ✓ 6 contracts selected (max_dte=30, history=10d)
+    ✓ CNX260320C00040000: 10-day history (CALL $40.0 exp 2026-03-20) | flow: 3 fills, ACCUMULATION
+    ✓ CNX260320C00036000: 10-day history (CALL $36.0 exp 2026-03-20)
+    ✓ CNX260320C00030000: 10-day history (CALL $30.0 exp 2026-03-20)
+    ✓ CNX260320P00037000: 10-day history (PUT $37.0 exp 2026-03-20)
+    ✓ CNX260320P00038000: 10-day history (PUT $38.0 exp 2026-03-20)
+    ✓ CNX260320C00041000: 10-day history (CALL $41.0 exp 2026-03-20) | flow: 2 fills, MIXED
+    📊 6 contracts with history: True
+    ✓ 1 flow alerts, 5d vol history, 22 DP prints, 6 contract histories
+  🔍 Reading flow for CNX (Bullish)...
+  ✅ Flow read: [NEUTRAL / MIXED] (75.1s, $0.7081)
+  📡 Fetching UW flow data for WLK (flow:14d history:20d DP:10d)...
+  📈 Fetching historical contract data for WLK...
+    ✓ 242 contracts found
+    ✓ 6 contracts selected (max_dte=75, history=20d)
+    ✓ WLK260320P00065000: 20-day history (PUT $65.0 exp 2026-03-20)
+    ✓ WLK260417C00100000: 20-day history (CALL $100.0 exp 2026-04-17)
+    ✓ WLK260417C00120000: 20-day history (CALL $120.0 exp 2026-04-17) | flow: 2 fills, DISTRIBUTION
+    ✓ WLK260417P00060000: 20-day history (PUT $60.0 exp 2026-04-17)
+    ✓ WLK260320C00100000: 20-day history (CALL $100.0 exp 2026-03-20) | flow: 1 fills, MIXED
+    ✓ WLK260417C00110000: 20-day history (CALL $110.0 exp 2026-04-17) | flow: 1 fills, DISTRIBUTION
+    📊 6 contracts with history: True
+    ✓ 6 flow alerts, 15d vol history, 331 DP prints, 34 lit flow, 6 contract histories
+  🔍 Reading flow for WLK (Bullish)...
+  ✅ Flow read: [CONTRADICTORY] (81.9s, $0.4044)
+  📡 Fetching UW flow data for CVE (flow:14d history:20d DP:10d)...
+  📈 Fetching historical contract data for CVE...
+    ✓ 270 contracts found
+    ✓ 6 contracts selected (max_dte=75, history=20d)
+    ✓ CVE260417C00030000: 20-day history (CALL $30.0 exp 2026-04-17) | flow: 1 fills, DISTRIBUTION
+    ✓ CVE260320C00025000: 20-day history (CALL $25.0 exp 2026-03-20) | flow: 20 fills, MIXED
+    ✓ CVE260417P00017000: 20-day history (PUT $17.0 exp 2026-04-17) | flow: 1 fills, ACCUMULATION
+    ✓ CVE260417C00025000: 20-day history (CALL $25.0 exp 2026-04-17) | flow: 12 fills, MIXED
+    ✓ CVE260320C00030000: 20-day history (CALL $30.0 exp 2026-03-20)
+    ✓ CVE260320C00022000: 20-day history (CALL $22.0 exp 2026-03-20) | flow: 8 fills, MIXED
+    📊 6 contracts with history: True
+    ✓ 28 flow alerts, 15d vol history, 497 DP prints, 49 lit flow, 6 contract histories
+  🔍 Reading flow for CVE (Bullish)...
+  ✅ Flow read: [SUPPORTIVE] (111.4s, $0.9480)
+  📡 Fetching UW flow data for TSM (flow:10d history:15d DP:5d)...
+  📈 Fetching historical contract data for TSM...
+    ✓ 500 contracts found
+    ✓ 6 contracts selected (max_dte=45, history=15d)
+    ✓ TSM260320C00290000: 15-day history (CALL $290.0 exp 2026-03-20) | flow: 80 fills, DISTRIBUTION
+    ✓ TSM260320C00200000: 15-day history (CALL $200.0 exp 2026-03-20) | flow: 59 fills, ACCUMULATION
+    ✓ TSM260320C00220000: 15-day history (CALL $220.0 exp 2026-03-20) | flow: 31 fills, DISTRIBUTION
+    ✓ TSM260320C00195000: 15-day history (CALL $195.0 exp 2026-03-20) | flow: 30 fills, ACCUMULATION
+    ✓ TSM260320C00280000: 15-day history (CALL $280.0 exp 2026-03-20) | flow: 37 fills, DISTRIBUTION
+    ✓ TSM260320C00250000: 15-day history (CALL $250.0 exp 2026-03-20) | flow: 66 fills, DISTRIBUTION
+    📊 6 contracts with history: True
+    ✓ 200 flow alerts, 10d vol history, 250 DP prints, 250 lit flow, 6 contract histories
+  🔍 Reading flow for TSM (Bullish)...
+  ✅ Flow read: [CONTRADICTORY] (95.8s, $0.8878)
+  📡 Fetching UW flow data for OXY (flow:14d history:20d DP:10d)...
+  📈 Fetching historical contract data for OXY...
+    ✓ 500 contracts found
+    ✓ 6 contracts selected (max_dte=75, history=20d)
+    ✓ OXY260320C00060000: 20-day history (CALL $60.0 exp 2026-03-20) | flow: 100 fills, MIXED
+    ✓ OXY260515C00060000: 20-day history (CALL $60.0 exp 2026-05-15) | flow: 100 fills, ACCUMULATION
+    ✓ OXY260417C00065000: 20-day history (CALL $65.0 exp 2026-04-17) | flow: 95 fills, MIXED
+    ✓ OXY260417C00062500: 9-day history (CALL $62.5 exp 2026-04-17) | flow: 100 fills, ACCUMULATION
+    ✓ OXY260515C00065000: 20-day history (CALL $65.0 exp 2026-05-15) | flow: 100 fills, ACCUMULATION
+    ✓ OXY260417C00060000: 20-day history (CALL $60.0 exp 2026-04-17) | flow: 100 fills, MIXED
+    📊 6 contracts with history: True
+    ✓ 200 flow alerts, 15d vol history, 500 DP prints, 278 lit flow, 6 contract histories
+  🔍 Reading flow for OXY (Bullish)...
+  ✅ Flow read: [SUPPORTIVE] (97.0s, $0.8681)
+  🔬 Confirming catalyst for LNG...
+  ✅ Catalyst: FADING → DOWNGRADE (CDS: 52) (71.6s, $1.6245)
+  🔬 Confirming catalyst for INSW...
+  ✅ Catalyst: COLLIDING → DOWNGRADE (CDS: 53) (75.1s, $1.7936)
+  🔬 Confirming catalyst for OVV...
+  ✅ Catalyst: FADING → DOWNGRADE (CDS: 32) (79.1s, $1.9030)
+  🔬 Confirming catalyst for PBF...
+  ✅ Catalyst: FADING → DOWNGRADE (CDS: 56) (78.0s, $1.8989)
+  🔬 Confirming catalyst for VRT...
+  ✅ Catalyst: FADING → HOLD FOR R2 (CDS: 49) (73.0s, $1.6724)
+  🔬 Confirming catalyst for FLNG...
+  ✅ Catalyst: COLLIDING → DOWNGRADE (CDS: 62) (78.9s, $1.5645)
+  🔬 Confirming catalyst for CNX...
+  ✅ Catalyst: FADING → KILL (CDS: 25) (70.3s, $1.7066)
+  🔬 Confirming catalyst for WLK...
+  ✅ Catalyst: FADING → KILL (CDS: 26) (73.2s, $1.8381)
+  🔬 Confirming catalyst for CVE...
+  ✅ Catalyst: COLLIDING → DOWNGRADE (CDS: 49) (73.1s, $1.6292)
+  🔬 Confirming catalyst for TSM...
+  ✅ Catalyst: COLLIDING → KILL (CDS: 34) (70.4s, $1.5512)
+  🔬 Confirming catalyst for OXY...
+  ✅ Catalyst: STABLE → CONFIRM (CDS: 65) (72.4s, $1.6842)
+YF.download() has changed argument auto_adjust default to True
+
+============================================================
+  TRADE STRUCTURER — Options Trade Construction
+============================================================
+  🎯 Structuring OXY (Bullish)...
+    IV=47.0% HV=44.2% IV/HV=1.06 → BUY_CALL_SPREAD
+    📅 3 candidate expirations: 2026-04-24(39d), 2026-04-17(32d), 2026-04-10(25d)
+    ⚠ No spread passed quality — falling back to deep ITM
+    🔄 Deep ITM: BUY_CALL $55.0 @ $4.40
+    ✅ BUY_CALL $55 exp 2026-04-24 (39d) @ $4.40 dr | QR=0% | IV/HV=1.06 | Spot=$57.25
+
+  📊 Structuring complete: 1 trades
+    BUY_CALL: 1

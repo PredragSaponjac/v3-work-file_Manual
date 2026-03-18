@@ -1,0 +1,197 @@
+OPTIONS & DARK POOL FLOW INTERPRETATION RULES — v5.7 FINAL (UW-Native)
+
+Use options flow and dark-pool data strictly as a confirmatory continuation / exhaustion layer, never as primary thesis origin.
+
+If Unusual Whales-style flow fields are provided, assume they may include:
+- ticker / underlying
+- call_put
+- strike
+- expiry
+- premium / notional
+- contracts / size
+- bid
+- ask
+- last
+- volume
+- open_interest
+- open_interest_change
+- trade_type or urgency flags (e.g. Sweep / ISO / Block)
+- tied_to_stock flag
+- multi_leg or spread hints
+- spot / underlying price
+- timestamp
+- dark-pool prints and dark-pool notional / size where available
+
+UNUSUAL ACTIVITY DETECTION LAYER
+
+Before interpreting flow, first decide whether the trade or cluster is actually unusual.
+
+A trade or cluster may qualify as unusual if several of the following are present:
+- notional premium is materially large for the name
+- relative volume is materially above normal for that strike / expiry
+- volume is large relative to prior OI
+- follow-up OI confirms fresh positioning
+- repeated same-direction prints occur across the same strike / expiry or a logically related cluster
+- execution suggests urgency (e.g. Sweeps / ISOs) or persistent repeat demand
+- strike / expiry align with a live catalyst window
+- activity is idiosyncratic rather than broad sector-wide macro flow
+
+Do not treat a trade as truly unusual based on one metric alone.
+Large premium without OI follow-through, or large volume without catalyst alignment, may still be noise, hedge flow, churn, or a roll.
+
+When possible, distinguish:
+- unusual single print
+- unusual multi-print cluster
+- unusual multi-session build
+
+PART 1: OPTIONS FLOW INTERPRETATION
+
+Interpretation hierarchy:
+- Open-interest change matters more than same-day volume
+- Multi-session build (activity across at least 2 sessions; stronger at 3+) matters more than single-session prints
+- Expiry and strike selection must match the catalyst window
+- Execution style (e.g., urgent Sweeps / ISOs vs. passive Blocks) or persistent repeat demand across multiple prints matters more than any single print’s bid/ask fill location
+- Notional premium and relative volume matter more than absolute contract volume
+- Bid/ask/mid location is suggestive, not conclusive
+- Flow that looks like hedging, rolling, overwriting, stock replacement, volatility harvesting, or profit-taking is weaker than clean new directional positioning
+
+Reading rules:
+- Print near ask may suggest aggressive buying; near bid may suggest aggressive selling; near mid is ambiguous
+- Prints above ask or below bid may indicate extreme urgency, quote staleness, fragmented sweep execution, or complex routing; treat them as potentially meaningful but not automatically cleaner than repeated ask-side or bid-side execution
+- Do not treat last price location as proof of directional intent
+- Always check timestamps for offsetting strikes or related legs to avoid misreading one leg of a multi-leg spread as standalone conviction
+- Flow explicitly flagged as tied to stock should be strongly downgraded or excluded from directional confirmation unless additional evidence suggests it is not purely delta-neutral
+- If aggressive buying occurs at extremely elevated IV (e.g., IV rank / percentile above roughly 80–90), downgrade directional confidence unless OI build, multi-session consistency, and catalyst alignment are unusually strong
+- Volume greater than prior OI may suggest opening activity, but confirmation is stronger if follow-up OI increases
+- Rising OI supports fresh positioning; falling OI may suggest closing or unwinding
+- Relative volume above roughly 2x–3x normal is more meaningful than ordinary activity
+- Strike and expiry should be evaluated for consistency with the catalyst timing and thesis
+- Deep ITM calls may reflect stock replacement rather than convex upside speculation
+- Far OTM options may reflect lottery behavior rather than informed conviction
+- Put activity during a bullish setup may be hedging rather than bearish expression
+- If similar flow appears broadly across the sector during the same macro tape, downgrade the idiosyncratic signal value
+- If same-day options flow conflicts with a stronger multi-session OI build, prefer the multi-session read unless the same-day activity clearly reflects a material unwind, reversal, or contradiction confirmed by price action
+
+Open-interest lifecycle rules:
+- Use day-over-day OI change to distinguish likely opening, holding, adding, reducing, and closing activity
+- High volume on a given day does not prove fresh opening if OI later fails to rise or subsequently falls
+- If large volume appears after an earlier OI build and OI then declines, consider whether the activity was closing, reducing, rolling, or profit-taking rather than new conviction
+- If OI rises across multiple sessions, treat this as stronger evidence of sustained position building
+- If OI peaked several sessions ago and has since fallen materially, downgrade the idea unless current flow shows a credible new rebuild
+- When possible, interpret current flow in the context of the recent OI path, not just today’s prints
+- If current volume is large but OI has already been declining for several sessions, assume the default read is more likely exit / unwind than fresh opening unless other evidence is unusually strong
+- If OI falls while price continues in the expected direction, consider whether the move is being driven by closing flow rather than fresh conviction
+- If OI rises again after a prior decline, distinguish a true rebuild from noisy churn by requiring multi-session consistency or clear catalyst alignment
+- If OI on a previously supportive strike or expiry declines materially, check whether positioning appears to be migrating to a logically related strike or later expiry before treating it as a true unwind
+- If OI is declining on the original line but rebuilding on a replacement strike or later expiry consistent with the same thesis, treat the original line as a roll or migration rather than a full exit
+- If OI declines without credible replacement flow, treat the prior supportive build as partially or fully unwound and downgrade flow confirmation accordingly
+- If the likely lifecycle state is unclear, include that explicitly under Downgrade factors
+
+PART 2: DARK POOL / EQUITY BLOCK INTERPRETATION
+
+Interpretation hierarchy:
+- Price action relative to the dark-pool print matters more than the print itself
+- Multi-day dense clusters at a specific price zone matter more than isolated random blocks
+- Relative size versus 30-day average daily volume matters more than raw shares alone
+
+Reading rules:
+- Do not infer trade direction from dark-pool execution alone
+- Never assume a dark-pool print is inherently a buy or sell; treat it first as a large off-exchange transfer of risk
+- Treat significant dark-pool levels as structural support / resistance or magnetic pivot zones
+- A major dark-pool level generally means clustered activity large relative to normal trading, for example roughly 5% or more of 30-day ADV
+- Bullish confirmation: price structurally holds and sustains above major dark-pool levels
+- Bearish confirmation: price structurally breaks and sustains below major dark-pool levels
+- A massive print near the high of an extended move followed by price rejection may suggest distribution
+- A massive print near the low of an extended selloff followed by price bounce may suggest accumulation
+- Account for late reporting; many dark-pool prints should be mapped as structural levels, not immediate momentum signals
+
+PART 3: ADDITIONAL CONTEXT RULES
+
+Dealer gamma / GEX context:
+- If dealer gamma exposure context is available, use it as a secondary impact check, not a thesis originator
+- Positive gamma environments may damp directional price impact from flow
+- Negative gamma environments may amplify directional price impact from flow
+- In a clearly negative gamma environment, temporary breaks of dark-pool structural levels may reflect dealer-driven price acceleration rather than clean thesis failure
+- If this appears likely, treat it as a downgrade and reassess using multi-session OI build, catalyst alignment, and subsequent price stabilization or recovery
+- Do not let negative gamma automatically override a genuine structural breakdown
+- If dealer gamma context is unavailable, state: Data unavailable — verify in R2
+- Do not let GEX override cleaner evidence from catalyst alignment, OI build, price action, and dark-pool structure
+
+Time-of-day context:
+- Consider when the flow occurred
+- Opening-session flow may reflect institutional hedging, macro reaction, or event positioning rather than pure idiosyncratic speculation
+- Closing-session flow may reflect rebalancing, hedging, or end-of-day positioning rather than fresh directional conviction
+- Quiet-session midday flow may carry more idiosyncratic signal than broad opening or closing rotations
+- If flow occurs primarily in the first or last 30 minutes of the session and no immediate catalyst is present, apply a soft downgrade unless other evidence strongly supports fresh idiosyncratic conviction
+- Do not over-interpret time-of-day in isolation; use it as a context modifier only
+
+Confluence rule:
+- Alignment between major dark-pool structural levels and directional options flow at the same price zone is one of the strongest confirmation patterns in this framework
+- Misalignment between dark-pool structure and options flow should downgrade conviction
+- Directional options flow occurring while price is holding the correct side of major dark-pool levels is stronger than similar flow occurring against those levels
+
+Signature-print / late-print proxy:
+- If a delayed dark-pool print is clearly outside the current session’s range, treat it as a prior-session structural level rather than a real-time momentum signal
+- If current price is materially above that late print, it may imply prior institutional accumulation below the market
+- If current price is materially below that late print, it may imply prior institutional distribution above the market
+- Use this as a secondary directional proxy only; do not override cleaner price-action evidence or stronger multi-day structural levels
+- If timing or print status is unclear, include it under Downgrade factors
+
+Expiry-week / pin-risk context:
+- In the final 1–2 trading days before expiration, high-OI strikes and dealer hedging can distort price action and weaken directional inference
+- Near expiry, apparent support / resistance or unusual flow may reflect pinning, hedging, or expiry-related positioning rather than fresh conviction
+- If the setup is inside this expiry window, downgrade tape confidence unless the catalyst is immediate and the flow / price-action alignment is unusually clean
+- If expiry-related distortion is likely, include it under Downgrade factors
+
+PART 4: SYNTHESIS / DOWNGRADE PROTOCOL
+
+If flow or dark-pool interpretation is mixed, ambiguous, unsupported by OI change, unavailable, or directly contradicts price action, do not let it rescue a weak idea.
+
+Supportive conditions generally require some combination of:
+- stock trading on the correct side of major dark-pool levels
+- multi-session directional consistency in options flow
+- supportive OI build
+- expiry alignment matching the catalyst window
+- strike placement logically consistent with the thesis
+- execution mechanics suggesting urgency (e.g., Sweeps / ISOs) or persistent repeat demand across multiple prints
+- premium size / relative activity that is meaningfully unusual, e.g. notional premium or volume materially above the recent norm for that strike / expiry when available
+- isolated rather than obviously paired / hedged / spread-driven prints
+- supportive dealer gamma context when available
+- constructive confluence between options flow and dark-pool structure
+- supportive signature-print context when clearly identified and not contradicted by cleaner real-time price action
+- supportive OI lifecycle context showing fresh build, sustained holding, credible rebuild, or clear migration / roll rather than likely exit flow
+
+Downgrade factors may include:
+- no follow-up OI confirmation
+- obviously paired or spread-driven prints
+- tied-to-stock or likely delta-neutral structure
+- extremely elevated IV without unusually strong supporting evidence
+- sector-wide macro flow reducing idiosyncratic signal value
+- contradictory price action relative to major dark-pool levels
+- flow concentrated at expiries or strikes that do not match the catalyst window
+- dark-pool data or options-flow data that is stale, delayed, or structurally unclear
+- time-of-day suggesting broad hedging/rebalancing rather than fresh conviction
+- dealer gamma context that dampens expected directional impact when available
+- possible gamma-driven dislocation through dark-pool structural levels
+- likely expiry-week pinning or hedging distortion
+- signature-print timing or interpretation is unclear
+- OI lifecycle suggests likely unwind, reduction, or churn rather than fresh opening / build
+- previously supportive OI build is materially unwinding without credible migration to a replacement strike or later expiry
+
+Before the final label, output exactly:
+Options read:
+Dark-pool read:
+Dealer gamma / timing context:
+Downgrade factors:
+
+Classification guidance:
+- [SUPPORTIVE] when multiple supportive conditions are clearly present and no material contradiction dominates
+- [NEUTRAL / MIXED] when evidence is mixed, incomplete, balanced, or only modestly supportive
+- [CONTRADICTORY] when two or more material dimensions conflict with the thesis, or when price / tape behavior clearly argues against continuation
+- [DATA UNAVAILABLE — VERIFY IN R2] when key required inputs are missing, unreliable, or too incomplete to classify with confidence
+
+Final tape-read output should be exactly one of:
+[SUPPORTIVE]
+[NEUTRAL / MIXED]
+[CONTRADICTORY]
+[DATA UNAVAILABLE — VERIFY IN R2]

@@ -1,0 +1,158 @@
+# ORCA v20 — Budget Sprint Intraday Intelligence Gathering
+#
+# Runs 3x/day Mon-Fri during market hours (CDT):
+#   10:00 AM CT = 15:00 UTC
+#   1:00 PM CT  = 18:00 UTC
+#   3:30 PM CT  = 20:30 UTC
+#
+# Uses ONLY cheap models. No publishing. Pure data collection.
+# State persisted via dedicated state branch (NOT committed to main).
+
+name: ORCA v20 Budget Sprint
+
+on:
+  # DISABLED — switched to Manual mode to reduce API costs
+  # schedule:
+  #   - cron: "0 15 * * 1-5"    # 10:00 AM CDT
+  #   - cron: "0 18 * * 1-5"    # 1:00 PM CDT
+  #   - cron: "30 20 * * 1-5"   # 3:30 PM CDT
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (no writes)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: orca-v20-budget
+  cancel-in-progress: false
+
+env:
+  PYTHONIOENCODING: utf-8
+  ORCA_BUDGET_MODE: "1"
+  ORCA_PUBLISH_REPORTS: "0"
+  ORCA_PUBLISH_TELEGRAM: "0"
+  ORCA_PUBLISH_X: "0"
+  ORCA_MIRROR_SHEET: "0"
+  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+  UW_API_KEY: ${{ secrets.UW_API_KEY }}
+  EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+  AISSTREAM_API_KEY: ${{ secrets.AISSTREAM_API_KEY }}
+
+jobs:
+  budget-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Restore persistent state
+        run: |
+          if git ls-remote --heads origin state | grep -q state; then
+            echo "Restoring state from state branch..."
+            git fetch origin state
+            git checkout origin/state -- orca_v20.db 2>/dev/null && echo "  restored orca_v20.db" || echo "  no orca_v20.db yet"
+            git checkout origin/state -- state/ 2>/dev/null && echo "  restored state/" || echo "  no state/ yet"
+            git checkout origin/state -- artifacts/ 2>/dev/null && echo "  restored artifacts/" || echo "  no artifacts/ yet"
+            git reset HEAD . 2>/dev/null || true
+          else
+            echo "First run — no state branch exists yet"
+          fi
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install websockets anthropic openai google-generativeai
+
+      - name: Run Budget Sprint Pipeline
+        run: |
+          ARGS="--budget --verbose"
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          python pipeline_v20.py $ARGS 2>&1 | tee budget_output.txt
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: budget-intraday-${{ github.run_number }}
+          path: |
+            budget_output.txt
+            artifacts/
+          retention-days: 21
+
+      - name: Persist state to state branch
+        if: always()
+        run: |
+          # WAL checkpoint: flush all data to main DB file before copying
+          python3 -c "import sqlite3; c=sqlite3.connect('orca_v20.db'); c.execute('PRAGMA wal_checkpoint(TRUNCATE)'); c.close()" 2>/dev/null || true
+
+          # Save files we want to persist
+          mkdir -p /tmp/orca-state
+          cp orca_v20.db /tmp/orca-state/ 2>/dev/null && echo "[state] saved orca_v20.db" || echo "[state] no orca_v20.db"
+          cp orca_v20.db-wal /tmp/orca-state/ 2>/dev/null || true
+          cp orca_v20.db-shm /tmp/orca-state/ 2>/dev/null || true
+          cp -r state/ /tmp/orca-state/state/ 2>/dev/null && echo "[state] saved state/" || echo "[state] no state/ dir"
+          cp -r artifacts/ /tmp/orca-state/artifacts/ 2>/dev/null && echo "[state] saved artifacts/" || echo "[state] no artifacts/"
+          ls -la /tmp/orca-state/
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Clean working tree before switching branches
+          # Pipeline leaves modified/untracked files (stage1_catalysts.json, budget_output.txt)
+          # that block git checkout. Stash them — we only need /tmp/orca-state/ copies.
+          git stash --include-untracked 2>/dev/null || git checkout -- . 2>/dev/null || true
+          git clean -fd 2>/dev/null || true
+
+          # Switch to state branch (create orphan if first time)
+          if git ls-remote --heads origin state | grep -q state; then
+            echo "[state] Checking out existing state branch..."
+            git checkout state
+            git pull origin state
+          else
+            echo "[state] Creating orphan state branch (first run)..."
+            git checkout --orphan state
+            git rm -rf . 2>/dev/null || true
+            echo "# ORCA v20 Budget Sprint State" > README.md
+            echo "This branch stores persistent state for budget sprint runs." >> README.md
+            echo "Do NOT merge this into main." >> README.md
+          fi
+
+          # Copy state files back into working tree
+          cp /tmp/orca-state/orca_v20.db . 2>/dev/null && echo "[state] restored orca_v20.db" || echo "[state] no db to restore"
+          cp /tmp/orca-state/orca_v20.db-wal . 2>/dev/null || true
+          cp /tmp/orca-state/orca_v20.db-shm . 2>/dev/null || true
+          cp -r /tmp/orca-state/state/ . 2>/dev/null && echo "[state] restored state/" || true
+          cp -r /tmp/orca-state/artifacts/ . 2>/dev/null && echo "[state] restored artifacts/" || true
+
+          # Stage ALL files — not specific paths that may silently fail
+          git add -A
+          git add orca_v20.db-wal orca_v20.db-shm 2>/dev/null || true
+          echo "[state] Staged files:"
+          git diff --cached --stat || true
+
+          if git diff --cached --quiet; then
+            echo "[state] No state changes to commit"
+          else
+            git commit -m "Budget sprint #${{ github.run_number }} — $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push origin state
+            echo "[state] Pushed to state branch"
+          fi

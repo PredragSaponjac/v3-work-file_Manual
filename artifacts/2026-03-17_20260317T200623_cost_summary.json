@@ -1,0 +1,28 @@
+{
+  "run_id": "4c4ab16f208c",
+  "total_cost_usd": 0.3196,
+  "max_budget": 3.0,
+  "role_costs": {
+    "elite_simulation": 0.0
+  },
+  "stage_caps": {
+    "stage2": {
+      "cap": 4,
+      "input": 9,
+      "processed": 4,
+      "skipped": 5
+    },
+    "stage3": {
+      "cap": 3,
+      "input": 4,
+      "processed": 3,
+      "skipped": 1
+    },
+    "stage4": {
+      "cap": 2,
+      "input": 2,
+      "processed": 2,
+      "skipped": 0
+    }
+  }
+}

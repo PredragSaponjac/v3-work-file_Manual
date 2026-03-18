@@ -1,0 +1,10 @@
+{"record_type": "thesis_summary", "thesis_id": "9df3d42616a5", "ticker": "CVE", "expected_horizon": "2_4W", "windows_computed": [], "windows_skipped": [1, 3, 5, 10, 20]}
+{"record_type": "thesis_summary", "thesis_id": "1de4117dd72a", "ticker": "LNG", "expected_horizon": "2_4W", "windows_computed": [], "windows_skipped": [1, 3, 5, 10, 20]}
+{"record_type": "thesis_summary", "thesis_id": "2ee96ef88a75", "ticker": "OVV", "expected_horizon": "3D", "windows_computed": [], "windows_skipped": [1, 3, 5, 10, 20]}
+{"record_type": "thesis_summary", "thesis_id": "04e6fe1328a7", "ticker": "PBF", "expected_horizon": "3D", "windows_computed": [], "windows_skipped": [1, 3, 5, 10, 20]}
+{"record_type": "thesis_summary", "thesis_id": "40a1d170a03a", "ticker": "OXY", "expected_horizon": "2_4W", "windows_computed": [], "windows_skipped": [1, 3, 5, 10, 20]}
+{"record_type": "thesis_summary", "thesis_id": "014aab84069f", "ticker": "PBF", "expected_horizon": "3D", "windows_computed": [], "windows_skipped": [1, 3, 5, 10, 20]}
+{"record_type": "thesis_summary", "thesis_id": "1edb94662cee", "ticker": "LNG", "expected_horizon": "3D", "windows_computed": [], "windows_skipped": [1, 3, 5, 10, 20]}
+{"record_type": "thesis_summary", "thesis_id": "29622caec7f9", "ticker": "TNK", "expected_horizon": "2_4W", "windows_computed": [], "windows_skipped": [1, 3, 5, 10, 20]}
+{"record_type": "thesis_summary", "thesis_id": "9488fa54994d", "ticker": "STNG", "expected_horizon": "2_4W", "windows_computed": [], "windows_skipped": [1, 3, 5, 10, 20]}
+{"record_type": "thesis_summary", "thesis_id": "0a2e8ad8cfdc", "ticker": "LNG", "expected_horizon": "3D", "windows_computed": [], "windows_skipped": [1, 3, 5, 10, 20]}

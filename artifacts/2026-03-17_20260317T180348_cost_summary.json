@@ -1,0 +1,26 @@
+{
+  "run_id": "3e22b1a4a1c5",
+  "total_cost_usd": 10.1825,
+  "max_budget": 3.0,
+  "role_costs": {},
+  "stage_caps": {
+    "stage2": {
+      "cap": 4,
+      "input": 9,
+      "processed": 4,
+      "skipped": 5
+    },
+    "stage3": {
+      "cap": 3,
+      "input": 4,
+      "processed": 3,
+      "skipped": 1
+    },
+    "stage4": {
+      "cap": 2,
+      "input": 1,
+      "processed": 1,
+      "skipped": 0
+    }
+  }
+}

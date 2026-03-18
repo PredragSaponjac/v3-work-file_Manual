@@ -1,0 +1,32 @@
+23:30:31 [orca_v20.db] INFO: Bootstrapping v20 database at: C:\Users\18329\Downloads\v3-work-file_Budget\orca_v20.db
+23:30:31 [orca_v20.db] INFO: v20 DB ready — 22 tables: budget_intelligence_log, crowd_snapshots, elite_agent_votes, etp_records, evidence_packs, evidence_source_links, institutional_pressure_snapshots, intraday_cases, memory_cases, monitor_rules, overnight_budget_log, quant_proof_records, replay_job_queue, replay_runs, run_traces, sector_cache, sqlite_sequence, teacher_feedback, theses, thesis_daily_snapshots, thesis_forward_outcomes, training_examples
+23:30:31 [orca_v20.overnight] INFO: ============================================================
+23:30:31 [orca_v20.overnight] INFO: ORCA v20 Overnight Learning — 2026-03-17
+23:30:31 [orca_v20.overnight] INFO:   Budget: $50.00 hard ceiling
+23:30:31 [orca_v20.overnight] INFO:   Deep review: False
+23:30:31 [orca_v20.overnight] INFO: ============================================================
+23:30:31 [orca_v20.overnight] INFO: [overnight L1] Starting cheap/deterministic layer
+23:30:31 [orca_v20.thesis_momentum] INFO: [run_id=5c5510a89567] Momentum update starting
+23:30:31 [orca_v20.thesis_momentum] INFO: [thesis_momentum] Updated 5 theses
+23:30:31 [orca_v20.overnight] INFO: [overnight L1] Momentum update complete
+23:30:31 [orca_v20.daemon_rules] INFO: [run_id=5c5510a89567] Updating daemon rules
+23:30:31 [orca_v20.daemon_rules] INFO: [daemon] Rules updated: 1 positions, streak=0
+23:30:31 [orca_v20.overnight] INFO: [overnight L1] Monitor rules updated
+23:30:32 [numexpr.utils] INFO: Note: NumExpr detected 16 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+23:30:32 [numexpr.utils] INFO: NumExpr defaulting to 8 threads.
+23:30:36 [orca_v20.overnight] INFO: [overnight L1] Auto-labeled 0 theses
+23:30:36 [orca_v20.overnight] INFO: [overnight L1] Computed 0 forward outcome windows
+23:30:36 [orca_v20.replay_engine] INFO: [replay_engine] No unreplayed closed theses found
+23:30:36 [orca_v20.overnight] INFO: [overnight L1] Complete: {'momentum_updated': True, 'rules_updated': True, 'auto_labeled': 0, 'replays_rules': 0, 'false_negatives': 0, 'queue_generated': 0, 'forward_outcomes_computed': 0}
+23:30:36 [orca_v20.overnight] INFO: [overnight L2] Starting LLM replay layer
+23:30:36 [orca_v20.overnight] INFO: [overnight L2] No pending L2 jobs
+23:30:36 [orca_v20.overnight] INFO: [overnight L3] Starting premium escalation layer
+23:30:36 [orca_v20.overnight] INFO: [overnight L3] No pending L3 jobs
+23:30:37 [orca_v20.overnight] INFO: ============================================================
+23:30:37 [orca_v20.overnight] INFO: Overnight complete — cost: $0.00 / $50.00
+23:30:37 [orca_v20.overnight] INFO:   L1: {'momentum_updated': True, 'rules_updated': True, 'auto_labeled': 0, 'replays_rules': 0, 'false_negatives': 0, 'queue_generated': 0, 'forward_outcomes_computed': 0}
+23:30:37 [orca_v20.overnight] INFO:   L2: {'processed': 0, 'deferred': 0, 'training_examples': 0}
+23:30:37 [orca_v20.overnight] INFO:   L3: {'processed': 0, 'deferred': 0}
+23:30:37 [orca_v20.overnight] INFO:   State preserved: YES
+23:30:37 [orca_v20.overnight] INFO: ============================================================
+23:30:37 [orca_v20.overnight_cli] INFO: Overnight complete. Summary: {'overnight_date': '2026-03-17', 'layer_1': {'momentum_updated': True, 'rules_updated': True, 'auto_labeled': 0, 'replays_rules': 0, 'false_negatives': 0, 'queue_generated': 0, 'forward_outcomes_computed': 0}, 'layer_2': {'processed': 0, 'deferred': 0, 'training_examples': 0}, 'layer_3': {'processed': 0, 'deferred': 0}, 'budget': {'night_date': '2026-03-17', 'hard_limit': 50.0, 'total_cost': 0.0, 'budget_remaining': 50.0, 'cost_by_provider': {}, 'cost_by_role': {}, 'items_processed': 0, 'items_deferred': 0, 'items_escalated': 0, 'exhausted': False}, 'state_preserved': True}

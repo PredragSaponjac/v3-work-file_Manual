@@ -1,0 +1,109 @@
+# ORCA v20 — Overnight Learning / Replay Workflow
+#
+# Schedule: Monday–Friday, 8:00 PM Houston time (America/Chicago)
+#
+# IMPORTANT — GitHub Actions cron uses UTC only:
+#   Because 8:00 PM CT crosses midnight UTC, the UTC weekday shifts forward:
+#   CDT (Mar–Nov): 0 1 * * 2-6   → Tue-Sat 01:00 UTC = Mon-Fri 8:00 PM CDT
+#   CST (Nov–Mar): 0 2 * * 2-6   → Tue-Sat 02:00 UTC = Mon-Fri 8:00 PM CST
+#   Currently set for CDT. Adjust seasonally if strict local timing needed.
+
+name: ORCA v20 Overnight
+
+on:
+  # DISABLED during Budget Sprint — re-enable after sprint completes
+  # schedule:
+  #   - cron: "0 1 * * 2-6"    # Tue-Sat 01:00 UTC = Mon-Fri 8:00 PM CDT
+  workflow_dispatch:
+    inputs:
+      deep_review:
+        description: "Run deep review mode"
+        type: boolean
+        default: false
+      dry_run:
+        description: "Dry run (no mutations)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: orca-v20-overnight
+  cancel-in-progress: false
+
+env:
+  PYTHONIOENCODING: utf-8
+  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+  GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+  GOOGLE_SHEETS_CREDS: ${{ secrets.GOOGLE_SHEETS_CREDS }}
+
+jobs:
+  run-overnight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install anthropic openai google-generativeai
+
+      - name: Restore cached data
+        uses: actions/cache@v4
+        with:
+          path: |
+            orca_results/
+            orca_v20.db
+          key: orca-v20-data-${{ github.run_number }}
+          restore-keys: |
+            orca-v20-data-
+
+      - name: Run ORCA v20 Overnight
+        run: |
+          ARGS=""
+          if [ "${{ github.event.inputs.deep_review }}" = "true" ]; then
+            ARGS="$ARGS --deep-review"
+          fi
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          python overnight_v20.py $ARGS 2>&1 | tee overnight_output.txt
+
+      - name: Upload overnight logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: overnight-output-${{ github.run_number }}
+          path: overnight_output.txt
+          retention-days: 14
+
+      - name: Commit updated DB (if changed)
+        if: always()
+        run: |
+          # WAL checkpoint: flush all data to main DB file before committing
+          python3 -c "import sqlite3; c=sqlite3.connect('orca_v20.db'); c.execute('PRAGMA wal_checkpoint(TRUNCATE)'); c.close()" 2>/dev/null || true
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add orca_v20.db 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Overnight run #${{ github.run_number }} — $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git pull --rebase origin main
+            git push origin main
+          fi

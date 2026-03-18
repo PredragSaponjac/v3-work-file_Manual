@@ -1,0 +1,35 @@
+ORCA Research — $EQT
+
+$EQT bullish — largest US nat gas producer lagging on winter surge
+
+Catalyst:
+Natural gas prices are surging on extended cold weather forecasts that are stretching the winter draw season. Henry Hub is up 12% this week as heating demand spikes and storage draws accelerate. This is a live weather-driven supply-demand shift hitting right now.
+
+Why this name:
+EQT is the cleanest single-name expression with 95%+ revenue exposure to natural gas prices. As the largest US natural gas producer, it gets pure operational leverage to Henry Hub moves without oil or NGL dilution that affects most peers.
+
+What already moved vs what has not:
+Natural gas itself has repriced 12% higher this week, and most energy names have participated in the sector rotation. EQT has lagged meaningfully despite being the most direct beneficiary. The stock hasn't caught up to the commodity move that directly drives its cash flow.
+
+Tape:
+Options flow and positioning reads as supportive. Fresh call interest is building rather than unwinding, suggesting institutional money is recognizing the lag and positioning for catch-up.
+
+Catalyst health:
+Weather forecasts continue strengthening the cold outlook, extending the winter heating season beyond normal patterns. Storage draws are accelerating and the supply-demand imbalance is confirming rather than moderating. Catalyst is in strengthening phase.
+
+Timing:
+Weather-driven nat gas moves typically resolve within 1-2 weeks as forecasts crystallize and storage data confirms or contradicts the demand surge. The repricing window is tactical and immediate.
+
+Risk:
+Warm weather reversal breaks the thesis entirely. If extended forecasts flip back to normal or above-normal temperatures, the heating demand spike disappears and gas prices give back gains quickly.
+
+This represents a classic ORCA edge: visible catalyst driving a commodity that one company has pure exposure to, with the stock lagging the input that determines its cash flow. The underreaction is measurable and the catalyst is live and strengthening.
+
+Structure: Long Call | Strikes: $62.50 | Expiry: 2026-04-17 | Entry: $4.34 debit
+
+Human quant + 3 layers of the most intelligent AI models.
+
+orca is a catalyst-first trade selection model built to find incomplete repricing in the cleanest single-name expression, then confirm or reject that thesis using options flow, open interest, and dark-pool behavior in both the underlying stock and the broader catalyst complex. Its edge comes from combining catalyst logic, underreaction proof, and second-dimension confirmation from positioning and tape rather than relying on headline momentum alone.
+
+Full trade log: https://docs.google.com/spreadsheets/d/1nKlWFb3nUn94bfMqm_WBo_DZLnMUrdCiDprAKpJb1F4
+Disclosure: Research only. Not financial advice. DYOR.

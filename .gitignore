@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.env
+scan_output.txt
+uw_cache/
+*.db
+event-vol-bot
+manual_prompts/*.txt
+
+# Manual mode prompt/response files (can be large)
+manual_prompts/*.txt
+!manual_prompts/.gitkeep

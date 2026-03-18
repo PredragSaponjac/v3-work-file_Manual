@@ -1,0 +1,40 @@
+{
+  "run_id": "f5d34798b530",
+  "market_date": "2026-03-18",
+  "timestamp_utc": "2026-03-18T01:05:34.066662+00:00",
+  "total_cost_usd": 0.0,
+  "summary": {
+    "overnight_date": "2026-03-18",
+    "layer_1": {
+      "momentum_updated": true,
+      "rules_updated": true,
+      "auto_labeled": 0,
+      "replays_rules": 0,
+      "false_negatives": 0,
+      "queue_generated": 0,
+      "forward_outcomes_computed": 0
+    },
+    "layer_2": {
+      "processed": 0,
+      "deferred": 0,
+      "training_examples": 0
+    },
+    "layer_3": {
+      "processed": 0,
+      "deferred": 0
+    },
+    "budget": {
+      "night_date": "2026-03-18",
+      "hard_limit": 50.0,
+      "total_cost": 0.0,
+      "budget_remaining": 50.0,
+      "cost_by_provider": {},
+      "cost_by_role": {},
+      "items_processed": 0,
+      "items_deferred": 0,
+      "items_escalated": 0,
+      "exhausted": false
+    },
+    "state_preserved": true
+  }
+}

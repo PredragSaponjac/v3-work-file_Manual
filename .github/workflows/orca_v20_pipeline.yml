@@ -1,0 +1,123 @@
+# ORCA v20 — Main Pipeline Workflow
+#
+# Schedule: Monday–Friday, 9:30 AM Houston time (America/Chicago)
+#
+# IMPORTANT — GitHub Actions cron uses UTC only:
+#   CDT (Mar–Nov): 30 14 * * 1-5  → 9:30 AM Houston
+#   CST (Nov–Mar): 30 15 * * 1-5  → 9:30 AM Houston
+#   Currently set for CDT. Adjust seasonally if strict local timing needed.
+
+name: ORCA v20 Pipeline
+
+on:
+  # DISABLED during Budget Sprint — re-enable after sprint completes
+  # schedule:
+  #   - cron: "30 14 * * 1-5"   # Mon-Fri 14:30 UTC = 9:30 AM CDT
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (no trades, no publish)"
+        type: boolean
+        default: false
+      verbose:
+        description: "Verbose logging"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: orca-v20-pipeline
+  cancel-in-progress: false
+
+env:
+  PYTHONIOENCODING: utf-8
+  # A6: Publish flags OFF by default in code — opt in for live runs
+  ORCA_PUBLISH_REPORTS: "1"
+  ORCA_PUBLISH_TELEGRAM: "1"
+  ORCA_PUBLISH_X: "1"
+  ORCA_MIRROR_SHEET: "1"
+  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+  UW_API_KEY: ${{ secrets.UW_API_KEY }}
+  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+  GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+  GOOGLE_SHEETS_CREDS: ${{ secrets.GOOGLE_SHEETS_CREDS }}
+  EIA_API_KEY: ${{ secrets.EIA_API_KEY }}
+  AISSTREAM_API_KEY: ${{ secrets.AISSTREAM_API_KEY }}
+  X_API_KEY: ${{ secrets.X_API_KEY }}
+  X_API_SECRET: ${{ secrets.X_API_SECRET }}
+  X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+  X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          # Additional deps for v20 source adapters
+          pip install websockets anthropic openai google-generativeai tweepy
+
+      - name: Restore cached data
+        uses: actions/cache@v4
+        with:
+          path: |
+            orca_results/
+            orca_v20.db
+          key: orca-v20-data-${{ github.run_number }}
+          restore-keys: |
+            orca-v20-data-
+
+      - name: Run ORCA v20 Pipeline
+        run: |
+          ARGS=""
+          if [ "${{ github.event.inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+          if [ "${{ github.event.inputs.verbose }}" = "true" ]; then
+            ARGS="$ARGS --verbose"
+          fi
+          python pipeline_v20.py $ARGS 2>&1 | tee pipeline_output.txt
+
+      - name: Upload pipeline logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pipeline-output-${{ github.run_number }}
+          path: |
+            pipeline_output.txt
+            orca_results/
+          retention-days: 14
+
+      - name: Commit results (if changed)
+        if: always()
+        run: |
+          # WAL checkpoint: flush all data to main DB file before committing
+          python3 -c "import sqlite3; c=sqlite3.connect('orca_v20.db'); c.execute('PRAGMA wal_checkpoint(TRUNCATE)'); c.close()" 2>/dev/null || true
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add orca_results/ orca_v20.db 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Pipeline run #${{ github.run_number }} — $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git pull --rebase origin main
+            git push origin main
+          fi

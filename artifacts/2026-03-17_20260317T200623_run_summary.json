@@ -1,0 +1,37 @@
+{
+  "run_id": "4c4ab16f208c",
+  "market_date": "2026-03-17",
+  "timestamp_utc": "2026-03-17T20:06:23.329961+00:00",
+  "budget_mode": true,
+  "total_cost_usd": 0.3196,
+  "trace": {
+    "ideas_generated": 9,
+    "stage2_cap": 4,
+    "stage2_input_count": 9,
+    "stage2_skipped_count": 5,
+    "stage2_processed_count": 4,
+    "ideas_after_flow": 4,
+    "stage3_cap": 3,
+    "stage3_input_count": 4,
+    "stage3_skipped_count": 1,
+    "stage3_processed_count": 3,
+    "ideas_after_confirm": 3,
+    "ideas_after_gates": 2,
+    "ideas_after_red_team": 2,
+    "stage4_cap": 2,
+    "stage4_input_count": 2,
+    "stage4_skipped_count": 0,
+    "stage4_processed_count": 2,
+    "trades_structured": 2,
+    "trades_logged": 2
+  },
+  "errors": [],
+  "router_summary": {
+    "role_costs": {
+      "elite_simulation": 0.0
+    },
+    "total_cost": 0.0,
+    "provider_health": {},
+    "roles_used": 1
+  }
+}

@@ -1,0 +1,160 @@
+ORCA METHODOLOGY / OPERATOR NOTE — UPDATED
+
+This system uses 3 separate prompts with different jobs. Do NOT merge them into one giant prompt.
+
+PROMPT 1 — ORCA_R1_SYSTEM
+Purpose:
+- generate delayed-reaction catalyst ideas
+- identify the cleanest single-name expression
+- prove underreaction
+- use options / OI / dark-pool only as confirmation, never as thesis origin
+
+Use this when:
+- scanning for new trades
+- running Open Hunt
+- running Seeded Catalyst mode
+
+Minimum inputs:
+- current date
+- mode (Open Hunt or Seeded)
+- catalyst seed if applicable
+- current sourced research / news / filings / market context
+- optional Unusual Whales options-flow and dark-pool data
+
+Important rule:
+- a trade idea must come from catalyst -> company linkage -> underreaction
+- options flow may confirm or weaken, but may not originate the idea
+
+PROMPT 2 — ORCA_FLOW_MODULE
+Purpose:
+- interpret Unusual Whales options flow / OI / OI change / dark-pool data
+- decide whether tape is supportive, mixed, contradictory, or unavailable
+- detect fresh build vs unwind vs roll / migration
+
+Use this when:
+- Unusual Whales flow data is present
+- you want richer tape interpretation inside R1
+
+Minimum inputs:
+- ticker
+- strike
+- expiry
+- call/put
+- premium / notional
+- bid / ask / last
+- volume
+- open interest
+- open interest change
+- trade type / urgency flag
+- tied-to-stock flag if available
+- timestamp
+- dark-pool data if available
+
+Important rule:
+- this module is confirmatory only
+- it must not create a thesis by itself
+
+PROMPT 3 — ORCA_CATALYST_CONFIRMATION_LAYER
+Purpose:
+- monitor whether the catalyst itself is strengthening, stable, fading, or colliding
+- confirm, downgrade, or kill an already-identified idea
+
+Use this when:
+- an ORCA idea already exists
+- you want to monitor the catalyst across proxy baskets, prediction markets, and cross-asset confirmation
+
+Minimum inputs:
+- original ORCA idea card
+- catalyst label
+- target ticker and direction
+- catalyst proxy basket
+- proxy-basket options / dark-pool summary if available
+- prediction-market summary if available
+- cross-asset summary if available
+
+Important rule:
+- this prompt does not generate new trades
+- it evaluates catalyst health only
+- it may kill an idea if the catalyst is clearly fading or colliding
+
+SYSTEM ORDER OF OPERATIONS
+
+Stage 1:
+Run ORCA_R1_SYSTEM
+
+Stage 2:
+If Unusual Whales flow is available, also apply ORCA_FLOW_MODULE during the R1 evaluation
+
+Stage 3:
+If an idea survives, run ORCA_CATALYST_CONFIRMATION_LAYER on the surviving idea
+
+Stage 4:
+If using multiple model outputs, pass those final idea cards to R1.6 adjudication
+
+Stage 5:
+After a trade is entered, use the Risk Monitor for hold / take profit / cut loss / tighten stop decisions
+
+NO-CANDIDATE PIPELINE RULE
+
+If ORCA_R1_SYSTEM returns:
+No valid ORCA candidates found.
+
+then:
+- stop the pipeline
+- do not run Catalyst Confirmation Layer
+- do not run R1.6 adjudication
+- do not force replacement ideas from flow, dark-pool, or prediction-market inputs alone
+
+A no-candidate result is a valid output, not a failure.
+A rerun should happen only if:
+- new catalyst inputs arrive
+- new market data materially changes the setup
+- the operator intentionally changes the seed or research pack
+
+DATA-UNAVAILABLE RULE
+
+If a required field is missing, unreliable, stale, or not supplied:
+- do not guess
+- do not simulate
+- do not infer precision
+- output exactly: Data unavailable — verify in R2
+
+This is not a failure.
+It means the system may not use that missing field as evidence.
+
+IMPORTANT ROLE SEPARATION
+
+R1:
+- finds ideas
+
+Flow Module:
+- reads tape
+
+Catalyst Confirmation Layer:
+- judges catalyst health
+
+R1.6:
+- adjudicates between model outputs
+
+Risk Monitor:
+- manages live positions after entry
+
+NEVER allow:
+- Flow Module to originate trades
+- Catalyst Confirmation Layer to invent new ideas
+- R1.6 to repair broken ideas
+- Risk Monitor to generate fresh trade ideas
+
+SUCCESS CRITERIA
+
+A valid ORCA idea must still satisfy:
+- real near-term catalyst
+- company-specific linkage
+- concrete underreaction evidence
+- tactical repricing window
+- not obviously fully priced
+- no critical unsupported assumption
+
+Flow, OI, dark-pool, prediction markets, and cross-asset confirmation are additive layers.
+They improve confidence, downgrade confidence, or kill the thesis.
+They do not replace the core ORCA acceptance standard.
