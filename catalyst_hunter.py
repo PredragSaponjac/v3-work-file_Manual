@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-ORCA V3 Stage 1 — Delayed-Reaction Catalyst Hunter (R1 v5.0 + UW Aware)
+ORCA V3 Stage 1 — Delayed-Reaction Catalyst Hunter (R1 v4.8 + UW Aware)
 
 Runs the R1 catalyst hunt using Claude + extended thinking + live news.
 Now also injects market-wide Unusual Whales flow alerts for richer context.
 
-The R1 prompt is loaded from prompts/r1_system_v5_0.txt (the full V5.0
+The R1 prompt is loaded from prompts/r1_system_v4_8.txt (the full V4.8
 prompt with UW flow interpretation rules attached).
 
 Usage:
@@ -46,13 +46,13 @@ if _env_file.exists():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# PROMPT LOADER — R1 v5.0 + Flow Module v5.7 (attached per the methodology)
+# PROMPT LOADER — R1 v4.8 + Flow Module v5.7 (attached per the methodology)
 # ─────────────────────────────────────────────────────────────────────────────
 def _load_r1_prompt() -> str:
-    """Load the R1 v5.0 system prompt + attach Flow Module as per methodology."""
+    """Load the R1 v4.8 system prompt + attach Flow Module as per methodology."""
     prompts_dir = Path(__file__).parent / "prompts"
 
-    r1_file = prompts_dir / "r1_system_v5_0.txt"
+    r1_file = prompts_dir / "r1_system_v4_8.txt"
     flow_file = prompts_dir / "flow_module_v5_7.txt"
 
     if not r1_file.exists():
@@ -146,7 +146,7 @@ def build_uw_market_context() -> str:
 # ─────────────────────────────────────────────────────────────────────────────
 def run_catalyst_hunt(seed: str = "", dry_run: bool = False) -> Optional[str]:
     """
-    Run the Stage 1 Catalyst Hunter (R1 v5.0 + UW flow aware).
+    Run the Stage 1 Catalyst Hunter (R1 v4.8 + UW flow aware).
 
     Args:
         seed: Optional catalyst seed for Seeded Mode
@@ -157,7 +157,7 @@ def run_catalyst_hunt(seed: str = "", dry_run: bool = False) -> Optional[str]:
     """
     print(f"""
 ╔═══════════════════════════════════════════════════════════════╗
-║  🎯 ORCA V3 STAGE 1 — Catalyst Hunter (R1 v5.0 + UW)        ║
+║  🎯 ORCA V3 STAGE 1 — Catalyst Hunter (R1 v4.8 + UW)        ║
 ║  Model: {STAGE1_MODEL:<52s} ║
 ║  Thinking: adaptive (effort=high)                            ║
 ║  Mode: {'Seeded — ' + seed[:35] if seed else 'Open Hunt':<52s} ║
@@ -331,10 +331,10 @@ Apply the Flow Module v5.7 rules if UW flow data was provided above."""
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# PARSER — Extract structured ideas from R1 v5.0 output
+# PARSER — Extract structured ideas from R1 v4.8 output
 # ─────────────────────────────────────────────────────────────────────────────
 def parse_catalyst_ideas(raw_text: str) -> List[Dict]:
-    """Parse R1 v5.0 output into structured idea dicts."""
+    """Parse R1 v4.8 output into structured idea dicts."""
     if not raw_text:
         return []
 
@@ -439,7 +439,7 @@ def format_catalyst_seeds_for_analyst(ideas: List[Dict]) -> str:
         return ""
 
     lines = [
-        "=== STAGE 1 CATALYST SEEDS (R1 v5.0 + UW flow) ===",
+        "=== STAGE 1 CATALYST SEEDS (R1 v4.8 + UW flow) ===",
         f"The Catalyst Hunter identified {len(ideas)} high-conviction delayed-reaction ideas.",
         "",
     ]
@@ -1195,7 +1195,7 @@ def merge_multi_model_ideas(claude_ideas: List[Dict],
 def run_multi_model_hunt(seed: str = "", dry_run: bool = False) -> tuple:
     """
     Run Stage 1 catalyst hunt across Claude + GPT + Gemini in parallel.
-    All three get the same R1 v5.0 prompt + live intelligence.
+    All three get the same R1 v4.8 prompt + live intelligence.
     Returns (raw_text_from_claude, merged_ideas_list).
     """
     print(f"""
@@ -1263,7 +1263,7 @@ def save_results(raw_text: str, ideas: List[Dict], seed: str = ""):
     raw_file = RESULTS_DIR / f"stage1_hunt_{ts}.md"
     with open(raw_file, "w", encoding="utf-8") as f:
         mode = f"Seeded: {seed}" if seed else "Open Hunt"
-        f.write(f"# 🎯 ORCA V3 Stage 1 — Catalyst Hunter R1 v5.0 ({mode})\n")
+        f.write(f"# 🎯 ORCA V3 Stage 1 — Catalyst Hunter R1 v4.8 ({mode})\n")
         f.write(f"# Date: {datetime.date.today()}\n\n")
         f.write(raw_text)
     print(f"  📄 Saved raw output: {raw_file}")
