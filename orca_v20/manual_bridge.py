@@ -31,6 +31,10 @@ logger = logging.getLogger("orca_v20.manual_bridge")
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 MANUAL_PROMPTS_DIR = _PROJECT_ROOT / "manual_prompts"
 
+# Hunter roles that should use the v5.3 MASTER prompt instead of v4.8
+_HUNTER_ROLES = {"hunter_primary", "hunter_secondary", "hunter_tertiary"}
+_R1_MASTER_V53_PATH = _PROJECT_ROOT / "prompts" / "r1_master_v5_3.txt"
+
 # Module-level sequence counter (increments per call within a run)
 _call_seq = 0
 
@@ -77,6 +81,18 @@ def save_prompt(
     so the human can copy-paste it into their LLM subscription chat.
     """
     MANUAL_PROMPTS_DIR.mkdir(parents=True, exist_ok=True)
+
+    # ── v5.3 MASTER prompt override for hunter roles ──
+    # The automated pipeline loads v4.8 as the system_prompt, but in manual
+    # mode we want the improved v5.3 MASTER gating.  The user_prompt
+    # (intelligence packet built by Stage 0 scrapers) stays unchanged.
+    if role in _HUNTER_ROLES and _R1_MASTER_V53_PATH.exists():
+        v53_text = _R1_MASTER_V53_PATH.read_text(encoding="utf-8")
+        logger.info(
+            f"[MANUAL] Overriding system prompt for {role}: "
+            f"v4.8 ({len(system_prompt)} chars) → v5.3 MASTER ({len(v53_text)} chars)"
+        )
+        system_prompt = v53_text
 
     seq = _next_seq()
     ts = datetime.now().strftime("%H%M%S")
